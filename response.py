@@ -21,12 +21,12 @@ def get_template(command):
             Kirim saran untuk BOT ini ke @elmoallistair.\n
             Lihat daftar perintah yang tersedia /perintah
             """,
-        "/perintah"      : "<b>Daftar perintah</b>\n",
+        "/perintah"      : "<b>Daftar perintah </b> 🤖\n",
         "/jadwal_kuliah" : "<b>Jadwal Perkuliahan PTA 2020/2021 - 3KA17</b>\n",
         "/jadwal_ujian"  : "<b>Jadwal Ujian PTA 2020/2021 - 3KA17</b>\n",
         "/kalender"      : "<b>Kalender Akademik PTA 2020/2021</b>\n",
-        "/tugas"         : "<b>Daftar Tugas Terbaru</b>\n",
-        "/berita"        : "<b>Daftar Berita terbaru</b>\n",
+        "/tugas"         : "<b>Daftar Tugas Terbaru</b> 📚\n",
+        "/berita"        : "<b>Daftar Berita terbaru</b> 📬\n",
         "/seminar"       : "<b>Daftar Seminar terbaru</b>\n",
         "/direktori"     : "<b>Direktori Universitas Gunadarma</b>\n"
     }
@@ -61,7 +61,7 @@ def listing_data(command, data):
             date_str = content[0]
             event = content[1] 
             date_dt = dt.date(*(int(s) for s in date_str.split('-')))
-            date = date_dt.strftime('%d%b %Y')
+            date = date_dt.strftime('%d %b %Y')
             pretty_data += f"<pre>🗓[{date}]</pre><b>{event}</b>\n\n"
     elif command == "/tugas":
         pretty_data = ""
@@ -72,10 +72,18 @@ def listing_data(command, data):
             date = content[4]
             if date != "None":
                 date_dt = dt.date(*(int(s) for s in date.split('-')))
-                date = date_dt.strftime('%d%b %Y')
-            pretty_data += f"<pre>[{date}] {media} {name}</pre>\n{matkul}\n\n"
-    elif command == "/berita": 
+                date = date_dt.strftime('%d %b %Y')
+            pretty_data += f"<pre>📗 [{date}] {media} {name}</pre>\n{matkul}\n\n"
+    elif command == "/berita":
         pretty_data = ""
+        for content in data:
+            print(content)
+            date_str = content[1]
+            title = content[2]
+            url = content[3]
+            date_dt = dt.date(*(int(s) for s in date_str.split('-')))
+            date = date_dt.strftime('%d %b %Y')
+            pretty_data += f"\n✉  [{date}]  <b><a href='{url}'>{title}</a></b>"
     elif command == "/seminar": 
         pretty_data = "".join([f"\n- <a href='{col[1]}'>{col[2]}</a>" for col in data])
     elif command == "/direktori": 
@@ -103,14 +111,13 @@ def append_data(command):
 
 def create_button(command):
     template = {    
+        "/perintah"      : ["Berikan saran fitur"]
         "/jadwal_kuliah" : ["Tampilkan tugas minggu ini",
                             "Simpan sebagai PDF/PNG",
                             "Buat Pengingat"],
         "/jadwal_ujian"  : ["Tampilkan tugas minggu ini",
-                            "Simpan sebagai PDF/PNG",
-                            "Buat Pengingat"],
-        "/kalender"      : ["Simpan sebagai PDF",
-                            "Simpan sebagai PNG",
+                            "Simpan sebagai PDF/PNG"],
+        "/kalender"      : ["Simpan sebagai PDF/PNG",
                             "Tambahkan ke Google Calendar"],
         "/tugas"         : ["Tampilkan tugas minggu ini",
                             "Simpan sebagai PDF/PNG",
