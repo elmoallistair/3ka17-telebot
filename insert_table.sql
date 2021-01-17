@@ -12,7 +12,7 @@ INSERT INTO perintah VALUES
     ("/kalender",      "Menampilkan kalender akademik"),
     ("/berita",        "Menampilkan berita terbaru"),
     ("/seminar",       "Menampilkan seminar terbaru"),
-    ("/direktori",     "Direktori Universitas Gunadarma");
+    ("/website",       "Direktori Universitas Gunadarma");
 
 CREATE TABLE jadwal_kuliah (
     hari VARCHAR(10) NOT NULL,
@@ -62,7 +62,7 @@ INSERT INTO kalender VALUES
     ("2021-02-08", "Ujian Akhir Semester (UAS)");
 
 CREATE TABLE tugas (
-    media VARCHAR(10) NOT NULL,
+    media VARCHAR(10),
     mata_kuliah VARCHAR(40) NOT NULL,
     nama_tugas VARCHAR(40) NOT NULL,
     tanggal_mulai DATE,
@@ -70,13 +70,14 @@ CREATE TABLE tugas (
 );
 
 INSERT INTO tugas VALUES 
-    ("V-CLASS", "Metode Penelitian",               "Minggu 11",            "2020-01-04", "2020-01-09"),
-    ("V-CLASS", "Peng. Teknologi Sistem Cerdas",   "Minggu 11",            "2020-01-05", "2020-01-12"),
-    ("V-CLASS", "Pemrog. Berorientasi Object",     "Tes GUI",              "2020-01-06", "2020-01-12"),
-    ("LABSI",   "Interaksi Manusia dan Komputer",  "M4 Ujian",             "2020-01-06", "2020-01-09"),
-    ("V-CLASS", "Interaksi Manusia dan Komputer",  "Topik 4",              "2020-01-06", "2020-01-12"),
-    ("V-CLASS", "Sistem Basis Data 1",             "Minggu 11",            "2020-01-09", "2020-01-16"),
-    ("G-MEET",  "Interaksi Manusia dan Komputer",  "Presentasi Prototype", NULL,         "2020-01-20");
+    ("V-CLASS", "Metode Penelitian",               "Minggu 11",            "2021-01-04", "2021-01-09"),
+    ("V-CLASS", "Peng. Teknologi Sistem Cerdas",   "Minggu 11",            "2021-01-05", "2021-01-12"),
+    ("V-CLASS", "Pemrog. Berorientasi Object",     "Tes GUI",              "2021-01-06", "2021-01-12"),
+    ("LABSI",   "Interaksi Manusia dan Komputer",  "M4 Ujian",             "2021-01-06", "2021-01-09"),
+    ("V-CLASS", "Interaksi Manusia dan Komputer",  "Topik 4",              "2021-01-06", "2021-01-12"),
+    ("V-CLASS", "Sistem Basis Data 1",             "Minggu 11",            "2021-01-09", "2021-01-16"),
+    ("V-CLASS", "Peng. Teknologi Sistem Cerdas",   "Minggu 12",            "2021-01-16", "2021-01-18"),
+    ("G-MEET",  "Interaksi Manusia dan Komputer",  "Presentasi Prototype", NULL,         "2021-01-20");
 
 CREATE TABLE berita (
     id INT PRIMARY KEY,
