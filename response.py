@@ -17,7 +17,8 @@ def get_template(command):
         "/start": 
             """
             <b>Selamat datang di 3KA17 BOT</b>  👋\n
-            BOT ini dibuat untuk memenuhi tugas mata kuliah Interaksi Manusia dan Komputer. 
+            Lihat daftar perintah /perintah
+            Tampilkan bantuan /help 
             """,
         "/help":
             """
@@ -28,6 +29,8 @@ def get_template(command):
             Kirim pertanyaan dan saran ke @elmoallistair\n
             Lihat source code BOT ini:
             https://github.com/elmoallistair/3ka17-telebot
+
+            Keterangan: sebagian besar button masih belum berfungsi.
             """,
         "/perintah"      : "<b>Daftar perintah </b>  🤖\n",
         "/jadwal_kuliah" : "<b>Jadwal Perkuliahan PTA 2020/2021 - 3KA17</b>\n",
@@ -35,7 +38,7 @@ def get_template(command):
         "/kalender"      : "<b>Kalender Akademik PTA 2020/2021</b>\n",
         "/tugas"         : "<b>Daftar Tugas Terbaru</b>  📚\n",
         "/berita"        : "<b>Daftar Berita terbaru</b>  📬\n",
-        "/seminar"       : "<b>Daftar Seminar terbaru</b>\n\n🔴  Status: <b>ERROR</b> \nWebsite https://seminar.gunadarma.ac.id/ sedang tidak bisa diakses.",
+        "/seminar"       : "<b>Daftar Seminar terbaru</b>\n\n🔴  Status: <b>ERROR</b> \n\nWebsite https://seminar.gunadarma.ac.id/ sedang tidak bisa diakses.",
         "/website"       : "<b>Direktori Universitas Gunadarma  🌐</b>\n"
     }
 
@@ -50,6 +53,7 @@ def listing_data(command, data):
             command = content[0]
             description = content[1]
             pretty_data += f"\n- {description} {command}"
+        pretty_data += '\n\n\n💡 <b>Tips</b>: Anda juga dapat mengirimkan pesan dengan keyword tertentu seperti "<i>Tampilkan daftar tugas terbaru</i>"!'
     elif command == "/jadwal_kuliah":
         start_week = dt.datetime.today() - dt.timedelta(days=dt.datetime.today().weekday() % 7)
         pretty_data = f"\n🔄  Update terakhir : {start_week.strftime('%d %b %Y')}\n"
@@ -66,7 +70,7 @@ def listing_data(command, data):
             pretty_data += temp_content.replace("None ", "? ")
             temp_day = content[0]
     elif command == "/jadwal_ujian":
-        pass # tbd
+        pass # tbd, no data
     elif command == "/kalender":
         for content in data:
             date_str = content[0]
@@ -84,12 +88,10 @@ def listing_data(command, data):
             date_dt = dt.date(*(int(s) for s in date_str.split('-')))
             date = date_dt.strftime('%d %b %Y')
             curr_date = dt.date.today()
-            print(date_dt, curr_date, date_dt < curr_date)
             if date_dt > curr_date:
                 pretty_data += f"📝  <b>{matkul}</b><pre>[{date}] {media} {name}</pre>\n\n"
     elif command == "/berita":
         for content in data[:-6:-1]:
-            print(content)
             date_str = content[1]
             title = content[2]
             url = content[3]
@@ -119,19 +121,48 @@ def append_data(command):
     
     return data
 
-def create_reply(command):
-    template = get_template(command)
-    if template:
-        if command in ["/start", "/help", "/website"]:
-            reply = template
-        else: 
-            reply = f"{template} {append_data(command)}"
-    else:
-        reply = "Command tidak dikenali. /perintah"
+def msg_to_command(msg): # need  improvement
+    keywords = {
+        "/start"        : ["mulai", "aktifkan", "bot", "start"],
+        "/help"         : ["bantuan", "help", "penggunaan", "cara pakai"],
+        "/perintah"     : ["perintah", "command", "instruksi"],
+        "/jadwal_kuliah": ["kuliah", "jadwal", "mata kuliah", "pelajaran"],
+        "/jadwal_ujian" : ["ujian", "uts", "uu", "uas"],
+        "/kalender"     : ["acara", "kalender", "kalendar", "event", "kegiatan"],
+        "/tugas"        : ["tugas", "pr", "v-class"],
+        "/berita"       : ["berita", "news"],
+        "/seminar"      : ["seminar", "event"],
+        "/website"      : ["direktori", "web", "website"]
+    }
+    if msg in keywords.keys():
+        return msg
 
-    return textwrap.dedent(reply)
+    list_msg = msg.lower().split()
+
+    all_keys = []
+    for value in keywords.values():
+        all_keys.extend(value)
+
+    for msg_key in list_msg:
+        for key,value in keywords.items():
+            if msg_key in value:
+                return key
+
+    return None
+
+def create_reply(msg):
+    command = msg_to_command(msg.lower())
+    if command:
+        template = get_template(command)
+        if template:
+            if command in ["/start", "/help", "/seminar", "/website"]:
+                reply = template
+            else: 
+                reply = f"{template} {append_data(command)}"
+        return textwrap.dedent(reply)
+    return "Command tidak dikenali. /perintah"
 
 def callback_create_reply(callback):
-    reply = "test"
+    reply = "test" #TBD
 
     return textwrap.dedent(reply)

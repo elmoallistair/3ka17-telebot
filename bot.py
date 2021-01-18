@@ -17,11 +17,17 @@ def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-def reply(update, context):
+def callback_query_handler(update, context):
+    cqd = update.callback_query.data
+    print(cqd)
+
+    pass # TBD
+
+def reply(update, context, from_callback=False, callback_msg=None):
     """Create reply to user."""
     msg = update.message.text
-    reply_markup = button.create_button(msg)
     reply = response.create_reply(msg)
+    reply_markup = button.create_button(msg)
     update.message.reply_text(reply, 
                     reply_markup=reply_markup, 
                     parse_mode=ParseMode.HTML,
@@ -34,7 +40,7 @@ def main():
     updater = Updater(token, use_context=True)
     bot = updater.bot
     dp = updater.dispatcher
-    dp.add_handler(CallbackQueryHandler(button.callback_query_handler))
+    dp.add_handler(CallbackQueryHandler(callback_query_handler))
     dp.add_handler(MessageHandler(Filters.text, reply))
     dp.add_error_handler(error)
     updater.start_polling()

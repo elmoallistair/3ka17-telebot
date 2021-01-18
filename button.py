@@ -1,56 +1,47 @@
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
 from random import seed
 import bot
+import response
 
-def create_button(command):
+def create_button(msg):
+    command = response.msg_to_command(msg)
     template = {    
-        "/start"         : [("Tampilkan daftar perintah  🤖",None),
-                            ("Bantuan",None)],
+        "/start"         : [("Bantuan",None)],
         "/help"          : [("Tampilkan daftar perintah  🤖",None)],
-        "/perintah"      : [("Berikan saran fitur","mailto:work.elmoallistair@gmail.com?subject=BotFeature")],
+        "/perintah"      : [("Berikan saran fitur","t.me/elmoallistair")],
         "/jadwal_kuliah" : [("Tampilkan tugas minggu ini  📚", None),
                             ("Simpan sebagai PDF  ⬇️", None)],
-        "/jadwal_ujian"  : [("Simpan sebagai PDF  ⬇️", None),
-                            ("Buat pengingat  ⏱",None)],
-        "/kalender"      : [("Simpan sebagai PDF  ⬇️",None),
-                            ("Tambahkan ke Google Calendar  🗓", None)],
-        "/tugas"         : [("Tampilkan semua tugas",None),
-                            ("Buat pengingat  ⏱",None)],
-        "/berita"        : [("Kunjungi BAAK", "baak.gunadarma.ac.id/")],
-        "/seminar"       : [("Kunjungi Seminar UG", "seminar.gunadarma.ac.id/")],
-        "/website"       : [("Website UG", "https://gunadarma.ac.id/"),
-                            ("BAAK", "https://baak.gunadarma.ac.id/"),
+        "/jadwal_ujian"  : [("Simpan sebagai PDF  ⬇️", None)],
+        "/kalender"      : [("Simpan sebagai PDF  ⬇️", None),
+                            ("Tambahkan ke Google Calendar  🗓", "https://calendar.google.com/calendar/u/0/r/eventedit?location=Indonesia")],
+        "/tugas"         : [("Tampilkan semua tugas 📚", None),
+                            ("Buat pengingat  ⏱", None)],
+        "/berita"        : [("Kunjungi BAAK 🌐", "baak.gunadarma.ac.id/")],
+        "/seminar"       : [("Kunjungi Seminar UG 🌐", "seminar.gunadarma.ac.id/")],
+        "/website"       : [("BAAK", "https://baak.gunadarma.ac.id/"), # need revision (add to db)
                             ("V-CLASS", "https://v-class.gunadarma.ac.id/"),
                             ("Praktikum", "https://praktikum.gunadarma.ac.id/"),
                             ("VM LePKom", "https://kursusvmlepkom.gunadarma.ac.id/"),
-                            ("Library", "https://library.gunadarma.ac.id/"),
                             ("Student Site", "https://studentsite.gunadarma.ac.id/"),
-                            ("StaffSite", "https://staffsite.gunadarma.ac.id/"),
-                            ("SAP", "https://sap.gunadarma.ac.id/"),
-                            ("E-Journal", "https://ejournal.gunadarma.ac.id/")]
+                            ("StaffSite", "https://staffsite.gunadarma.ac.id/")],
     }
 
-    if command in template.keys():
-        keyboard = []
-        if command == "/website":
-            data = template[command]
-            for i, content in enumerate(data[::2]):
-                text1, text2 = data[i][0], data[i+1][0]
-                url1, url2 = data[i][1], data[i+1][1]
-                print(text1,url1)
-                print(text2,url2)
+    keyboard = []
+    if command == "/perintah":
+        kb = [
+            [KeyboardButton("Bantuan")],
+            [KeyboardButton("Tampilkan jadwal kuliah")],
+            [KeyboardButton("Tampilkan jadwal ujian")],
+            [KeyboardButton("Kalender Akademik")],
+            [KeyboardButton("Tampilkan tugas aktif")],
+            [KeyboardButton("Seminar Terbaru")],
+            [KeyboardButton("Daftar Website")]
+        ]
+        kb_markup = ReplyKeyboardMarkup(kb, resize_keyboard=True)
+        return kb_markup
 
-                keyboard.append([
-                    InlineKeyboardButton(text=text1, callback_data=f"website_callback_{i}", url=url1),
-                    InlineKeyboardButton(text=text2, callback_data=f"website_callback_{i+1}", url=url2)
-                    ])
-            return InlineKeyboardMarkup(keyboard)
+    if command in template.keys():
         for i, (text,url) in enumerate(template[command]):
             keyboard.append([InlineKeyboardButton(text=text, callback_data=f"{command}_callback_{i}", url=url)])
         return InlineKeyboardMarkup(keyboard)
     return None
-
-def callback_query_handler(update, context):
-    cqd = update.callback_query.data
-    print(cqd)
-    pass # TBD

@@ -1,0 +1,5 @@
+configparser==5.0.2
+pandas==1.2.0
+python-telegram-bot==13.1
+requests==2.22.0
+weasyprint==52.2

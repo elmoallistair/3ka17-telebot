@@ -77,7 +77,8 @@ INSERT INTO tugas VALUES
     ("V-CLASS", "Interaksi Manusia dan Komputer",  "Topik 4",              "2021-01-06", "2021-01-12"),
     ("V-CLASS", "Sistem Basis Data 1",             "Minggu 11",            "2021-01-09", "2021-01-16"),
     ("V-CLASS", "Peng. Teknologi Sistem Cerdas",   "Minggu 12",            "2021-01-16", "2021-01-18"),
-    ("G-MEET",  "Interaksi Manusia dan Komputer",  "Presentasi Prototype", NULL,         "2021-01-20");
+    ("G-MEET",  "Interaksi Manusia dan Komputer",  "Presentasi Prototype", NULL,         "2021-01-20"),
+    ("V-CLASS", "Graf dan Analisis Algoritma",     "Minggu 13",            "2021-01-20", "2021-01-26");
 
 CREATE TABLE berita (
     id INT PRIMARY KEY,

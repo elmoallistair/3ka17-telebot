@@ -1,3 +1,4 @@
+# this script not yet added to main feature
 import sqlite3
 import weasyprint
 import pandas as pd
@@ -5,9 +6,6 @@ import pandas as pd
 def connect_database(db):
     connection = sqlite3.connect(db)
     return connection
-
-def clean_data(df, flag):
-    pass
 
 def read_template_html(file_path="pdf_template.html"):
     template_file = open(file_path)
@@ -32,7 +30,7 @@ def create_pdf(df, callback):
     weasyprint.HTML(html_file).write_pdf(pdf_file)
 
 if __name__ == "__main__":
-    callback = "jadwal_kuliah" # test
+    callback = "jadwal_kuliah" # testing variable
     connection = sqlite3.connect("database.db")
     df = pd.read_sql_query(F"select * from {callback}", connection)
 
