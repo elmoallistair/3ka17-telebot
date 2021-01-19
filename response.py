@@ -19,18 +19,28 @@ def get_template(command):
             <b>Selamat datang di 3KA17 BOT</b>  👋\n
             Lihat daftar perintah /perintah
             Tampilkan bantuan /help 
+
+            Keterangan: 
+            🤖  Bot masih dalam tahap pengembangan.
+            🤖  Sebagian besar button masih belum berfungsi.
             """,
         "/help":
             """
             <b>Bantuan</b> ❔\n
             Bot ini merupakan media pengaksesan informasi untuk menunjang pembelajaran untuk kelas 3KA17.
 
-            Lihat daftar perintah: /perintah
+            <b>Cara Menggunakan Bot</b>
+            Kirim perintah menggunakan command yang tersedia di /perintah
+            
+            💡 <b>Tips</b>: Anda juga dapat mengirimkan pesan dengan <b>keyword</b> tertentu seperti "<i>Tampilkan daftar tugas terbaru</i>"!
+
             Kirim pertanyaan dan saran ke @elmoallistair\n
             Lihat source code BOT ini:
             https://github.com/elmoallistair/3ka17-telebot
 
-            Keterangan: sebagian besar button masih belum berfungsi.
+            Keterangan: 
+            🤖  Bot masih dalam tahap pengembangan.
+            🤖  Sebagian besar button masih belum berfungsi.
             """,
         "/perintah"      : "<b>Daftar perintah </b>  🤖\n",
         "/jadwal_kuliah" : "<b>Jadwal Perkuliahan PTA 2020/2021 - 3KA17</b>\n",
@@ -124,15 +134,15 @@ def append_data(command):
 def msg_to_command(msg): # need  improvement
     keywords = {
         "/start"        : ["mulai", "aktifkan", "bot", "start"],
-        "/help"         : ["bantuan", "help", "penggunaan", "cara pakai"],
+        "/help"         : ["bantuan", "help", "panduan", "pemakaian"],
         "/perintah"     : ["perintah", "command", "instruksi"],
-        "/jadwal_kuliah": ["kuliah", "jadwal", "mata kuliah", "pelajaran"],
+        "/jadwal_kuliah": ["kuliah", "matkul", "kelas", "pelajaran"],
         "/jadwal_ujian" : ["ujian", "uts", "uu", "uas"],
         "/kalender"     : ["acara", "kalender", "kalendar", "event", "kegiatan"],
         "/tugas"        : ["tugas", "pr", "v-class"],
         "/berita"       : ["berita", "news"],
-        "/seminar"      : ["seminar", "event"],
-        "/website"      : ["direktori", "web", "website"]
+        "/seminar"      : ["seminar", "acara", "event"],
+        "/website"      : ["direktori", "web", "website", "navigasi"]
     }
     if msg in keywords.keys():
         return msg

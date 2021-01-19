@@ -7,7 +7,7 @@ def connect_database(db):
     connection = sqlite3.connect(db)
     return connection
 
-def read_template_html(file_path="pdf_template.html"):
+def read_template_html(file_path="temp/pdf_template.html"):
     template_file = open(file_path)
     content = template_file.read()
     template_file.close()

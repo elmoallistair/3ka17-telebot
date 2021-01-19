@@ -7,11 +7,11 @@ def create_button(msg):
     command = response.msg_to_command(msg)
     template = {    
         "/start"         : [("Bantuan",None)],
-        "/help"          : [("Tampilkan daftar perintah  🤖",None)],
-        "/perintah"      : [("Berikan saran fitur","t.me/elmoallistair")],
+        "/help"          : [("Tampilkan daftar perintah  🤖",None),
+                            ("Berikan saran fitur","https://t.me/elmoallistair")],
         "/jadwal_kuliah" : [("Tampilkan tugas minggu ini  📚", None),
                             ("Simpan sebagai PDF  ⬇️", None)],
-        "/jadwal_ujian"  : [("Simpan sebagai PDF  ⬇️", None)],
+        # "/jadwal_ujian"  : [("Simpan sebagai PDF  ⬇️", None)],
         "/kalender"      : [("Simpan sebagai PDF  ⬇️", None),
                             ("Tambahkan ke Google Calendar  🗓", "https://calendar.google.com/calendar/u/0/r/eventedit?location=Indonesia")],
         "/tugas"         : [("Tampilkan semua tugas 📚", None),
